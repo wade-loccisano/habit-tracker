@@ -9,10 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddApplication().AddInfrastructure();
+builder.Services.AddApplication();
+builder.AddInfrastructure();
 
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
+
 
 //
 
@@ -26,6 +28,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseSerilogRequestLogging();
+
+app.MapHealthChecks("health");
 
 //
 
