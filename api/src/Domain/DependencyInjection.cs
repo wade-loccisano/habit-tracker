@@ -1,5 +1,5 @@
 ﻿namespace Domain;
 
-public class DependencyInjection
+public static class DependencyInjection
 {
 }
