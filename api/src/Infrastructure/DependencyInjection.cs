@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Common.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,5 +14,8 @@ public static class DependencyInjection
 
         builder.Services.AddDbContext<HabitTrackerDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("LocalConnection")));
+
+        builder.Services.AddScoped<IHabitTrackerDbContext>(provider => provider.GetRequiredService<HabitTrackerDbContext>());
+
     }
 }
