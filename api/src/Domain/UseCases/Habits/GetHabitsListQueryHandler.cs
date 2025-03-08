@@ -6,11 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Domain.UseCases.Habits;
 
-public record GetHabitsListQuery(
-    string Name,
-    int Frequency,
-    DateTime? ReminderTime,
-    int StreakCount) : IRequest<ICollection<HabitListDTO>>;
+public record GetHabitsListQuery() : IRequest<ICollection<HabitListDTO>>;
 
 public class GetHabitsListQueryHandler : IRequestHandler<GetHabitsListQuery, ICollection<HabitListDTO>>
 {

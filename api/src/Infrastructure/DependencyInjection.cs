@@ -16,6 +16,5 @@ public static class DependencyInjection
             options.UseNpgsql(builder.Configuration.GetConnectionString("LocalConnection")));
 
         builder.Services.AddScoped<IHabitTrackerDbContext>(provider => provider.GetRequiredService<HabitTrackerDbContext>());
-
     }
 }

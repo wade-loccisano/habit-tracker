@@ -6,7 +6,7 @@ namespace Infrastructure;
 
 [ApiController]
 //[Authorize]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public abstract class APIControllerBase : ControllerBase
 {
     private ISender? _mediator;
