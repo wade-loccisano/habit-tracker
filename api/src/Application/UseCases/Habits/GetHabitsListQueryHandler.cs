@@ -1,4 +1,4 @@
-﻿using Domain.Common.Interfaces;
+﻿using Application.Common.Interfaces;
 using Domain.DTOs.Mappers;
 using Domain.DTOs.Output;
 using MediatR;
