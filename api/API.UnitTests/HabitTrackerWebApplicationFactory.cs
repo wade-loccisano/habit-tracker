@@ -20,9 +20,9 @@ public class HabitTrackerWebApplicationFactory(
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        //builder.UseSetting("ConnectionStrings:HabitTrackerDb", _connectionString);
-        //builder.ConfigureTestServices(services => services
-        //        .RemoveAll<DbContextOptions<HabitTrackerDbContext>>()
-        //        .AddDbContext<HabitTrackerDbContext>((sp, options) => options.UseNpgsql(_connection)));
+        builder.UseSetting("ConnectionStrings:HabitTrackerDb", _connectionString);
+        builder.ConfigureTestServices(services => services
+                .RemoveAll<DbContextOptions<HabitTrackerDbContext>>()
+                .AddDbContext<HabitTrackerDbContext>((sp, options) => options.UseNpgsql(_connection)));
     }
 }

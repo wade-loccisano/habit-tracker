@@ -8,5 +8,5 @@ public class HabitProgress : BaseAuditableEntity
     public DateTime CompletedDate { get; set; } // make nullable
     
     public Guid HabitId { get; set; }
-    public required Habit Habit { get; set; }
+    public Habit? Habit { get; set; }
 }

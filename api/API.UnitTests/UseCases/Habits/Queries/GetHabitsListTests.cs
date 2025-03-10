@@ -26,13 +26,13 @@ public class GetHabitsListTests : BaseTestFixture
 
         await AddAsync(habit);
 
-        var habitProgresses = new List<HabitProgress>
-        {
-        };
+        //var habitProgresses = new List<HabitProgress>
+        //{
+        //};
 
-        var prog = new HabitProgress { HabitId = habit.Id, Habit = habit, Completed = true, CompletedDate = DateTime.UtcNow };
+        var prog = new HabitProgress { HabitId = habit.Id, Completed = true, CompletedDate = DateTime.UtcNow };
 
-        await AddAsync(habitProgresses);
+        //await AddAsync(habitProgresses);
         await AddAsync(prog);
 
         habit.HabitProgresses.Add(prog);
@@ -44,4 +44,31 @@ public class GetHabitsListTests : BaseTestFixture
         //result.Count.Should().HaveCount(1);
         result.First().Name.Should().Be(habit.Name);
     }
+
+    //[Test]
+    //public async Task ShouldGetList()
+    //{
+    //    var listId = await SendAsync(new CreateTodoListCommand
+    //    {
+    //        Title = "New List"
+    //    });
+
+    //    var command = new CreateTodoItemCommand
+    //    {
+    //        ListId = listId,
+    //        Title = "Tasks"
+    //    };
+
+    //    var itemId = await SendAsync(command);
+
+    //    var item = await FindAsync<TodoItem>(itemId);
+
+    //    item.Should().NotBeNull();
+    //    item!.ListId.Should().Be(command.ListId);
+    //    item.Title.Should().Be(command.Title);
+    //    item.CreatedBy.Should().Be(userId);
+    //    item.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+    //    item.LastModifiedBy.Should().Be(userId);
+    //    item.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+    //}
 }

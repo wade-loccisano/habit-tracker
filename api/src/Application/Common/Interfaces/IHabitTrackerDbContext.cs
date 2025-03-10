@@ -1,8 +1,7 @@
 ﻿using Domain.Models;
-using Domain.UseCases.Habits;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain.Common.Interfaces;
+namespace Application.Common.Interfaces;
 
 public interface IHabitTrackerDbContext
 {
