@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Reflection.Emit;
+using Application.Common.Interfaces;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,12 @@ public class HabitTrackerDbContext : IdentityDbContext<User>, IHabitTrackerDbCon
         base.OnModelCreating(builder);
 
         builder.Entity<User>().Property(u => u.Intitials).HasMaxLength(5);
+
+        builder.Entity<Habit>()
+            .HasOne(h => h.User)
+            .WithMany(u => u.Habits)
+            .HasForeignKey(h => h.UserId)
+            .OnDelete(DeleteBehavior.Cascade); // consider soft delete
 
         builder.HasDefaultSchema("identity");
     }
