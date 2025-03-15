@@ -1,4 +1,5 @@
-﻿using Domain.DTOs.Output;
+﻿using Application.UseCases.Habits.Commands;
+using Domain.DTOs.Output;
 using Domain.UseCases.Habits;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +15,26 @@ public class HabitController : APIControllerBase
     {
         ICollection<HabitListDTO> results = await Mediator.Send(
             new GetHabitsListQuery(),
+            cancellationToken);
+
+        return Ok(results);
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<ActionResult<Guid>> CreateHabit(
+        string userId,
+        string name,
+        int frequency,
+        DateTime? reminderTIme,
+        CancellationToken cancellationToken)
+    {
+        Guid results = await Mediator.Send(
+            new CreateHabitCommand(
+                userId,
+                name,
+                frequency,
+                reminderTIme),
             cancellationToken);
 
         return Ok(results);

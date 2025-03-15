@@ -5,5 +5,8 @@ namespace Application.Common.Interfaces;
 
 public interface IHabitTrackerDbContext
 {
-    DbSet<Habit> Habits { get; set; }
+    DbSet<Habit> Habits { get; }
+    DbSet<HabitProgress> HabitProgresses { get; }
+
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

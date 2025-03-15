@@ -11,8 +11,8 @@ public class HabitTrackerDbContext : IdentityDbContext<User>, IHabitTrackerDbCon
     public HabitTrackerDbContext(DbContextOptions<HabitTrackerDbContext> options) 
         : base(options) => DbPath = "q";
 
-    public DbSet<Habit> Habits { get; set; }
-    public DbSet<HabitProgress> HabitProgresses { get; set; }
+    public DbSet<Habit> Habits => Set<Habit>();
+    public DbSet<HabitProgress> HabitProgresses => Set<HabitProgress>();
 
     public string DbPath { get; } = "q";
 
@@ -30,5 +30,12 @@ public class HabitTrackerDbContext : IdentityDbContext<User>, IHabitTrackerDbCon
             .OnDelete(DeleteBehavior.Cascade); // consider soft delete
 
         builder.HasDefaultSchema("identity");
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        int rowsAffected = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(true);
+
+        return rowsAffected;
     }
 }
