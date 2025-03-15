@@ -40,5 +40,27 @@ public class HabitController : APIControllerBase
         return Ok(results);
     }
 
+    [Authorize]
+    [HttpPut]
+    public async Task<ActionResult<Guid>> UpdateHabt(
+        string userId,
+        Guid habitId,
+        string? name,
+        int? frequency,
+        DateTime? reminderTime,
+        CancellationToken cancellationToken)
+    {
+        Guid results = await Mediator.Send(
+            new UpdateHabitCommand(
+                userId,
+                habitId,
+                name,
+                frequency,
+                reminderTime),
+            cancellationToken);
+
+        return Ok(results);
+    }
+
 
 }
