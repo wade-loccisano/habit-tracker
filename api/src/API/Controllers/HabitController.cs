@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.Habits.Commands;
+using Application.UseCases.Habits.Queries;
 using Domain.DTOs.Output;
 using Domain.UseCases.Habits;
 using Infrastructure;
@@ -15,6 +16,20 @@ public class HabitController : APIControllerBase
     {
         ICollection<HabitListDTO> results = await Mediator.Send(
             new GetHabitsListQuery(),
+            cancellationToken);
+
+        return Ok(results);
+    }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<ActionResult<ICollection<HabitListDTO>>> GetHabits(
+        string UserId,
+        CancellationToken cancellationToken)
+    {
+        ICollection<HabitListDTO> results = await Mediator.Send(
+            new GetHabitsQuery(
+                UserId),
             cancellationToken);
 
         return Ok(results);
