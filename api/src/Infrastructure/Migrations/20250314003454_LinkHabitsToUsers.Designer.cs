@@ -3,6 +3,7 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HabitTrackerDbContext))]
-    partial class HabitTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250314003454_LinkHabitsToUsers")]
+    partial class LinkHabitsToUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,20 +32,20 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTimeOffset>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Frequency")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("LastUpdated")
+                    b.Property<DateTime?>("LastUpdated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("LastUpdatedBy")
-                        .HasColumnType("text");
+                    b.Property<Guid?>("LastUpdatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -77,20 +80,20 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CompletedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTimeOffset>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("HabitId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTimeOffset>("LastUpdated")
+                    b.Property<DateTime?>("LastUpdated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("LastUpdatedBy")
-                        .HasColumnType("text");
+                    b.Property<Guid?>("LastUpdatedBy")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 

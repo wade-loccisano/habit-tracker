@@ -5,4 +5,6 @@ namespace Domain.Models;
 public class User : IdentityUser
 {
     public string? Intitials { get; set; }
+
+    public ICollection<Habit> Habits { get; } = [];
 }

@@ -1,5 +1,8 @@
-﻿using Infrastructure;
+﻿using Domain.Models;
+using Infrastructure;
+using Infrastructure.Identity;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
@@ -12,6 +15,7 @@ public partial class Testing
     private static ITestDatabase _database = null!;
     private static HabitTrackerWebApplicationFactory _factory = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
+    private static string? _userId;
 
     [OneTimeSetUp]
     public async Task RunBeforeAnyTests()
@@ -68,6 +72,48 @@ public partial class Testing
         ISender mediator = scope.ServiceProvider.GetRequiredService<ISender>();
 
         await mediator.Send(request);
+    }
+
+    public static string? GetUserId() => _userId;
+
+    public static async Task<string> RunAsDefaultUserAsync() 
+        => await RunAsUserAsync("test@local", "Testing1234!", Array.Empty<string>());
+
+    //public static async Task<string> RunAsAdministratorAsync() =>
+    //    await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { Roles.Administrator });
+
+    public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
+    {
+        using IServiceScope scope = _scopeFactory.CreateScope();
+
+        UserManager<User> userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+        var user = new User { UserName = userName, Email = userName };
+
+        IdentityResult result = await userManager.CreateAsync(user, password);
+
+        if (roles.Length != 0)
+        {
+            RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            foreach (string role in roles)
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+
+            await userManager.AddToRolesAsync(user, roles);
+        }
+
+        if (result.Succeeded)
+        {
+            _userId = user.Id;
+
+            return _userId;
+        }
+
+        string errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
+
+        throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
     }
 
     [OneTimeTearDown]

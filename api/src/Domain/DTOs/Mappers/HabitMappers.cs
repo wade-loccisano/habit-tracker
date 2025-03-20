@@ -11,4 +11,10 @@ public static class HabitMappers
         entity.Frequency,
         entity.ReminderTime,
         entity.StreakCount);
+
+    public static HabitProgressDTO MapAsDTO(this HabitProgress entity) => new(
+        entity.Id,
+        entity.HabitId,
+        entity.Completed,
+        entity.CompletedDate);
 }
