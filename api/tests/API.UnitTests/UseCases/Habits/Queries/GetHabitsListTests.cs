@@ -13,11 +13,12 @@ public class GetHabitsListTests : BaseTestFixture
     [Test]
     public async Task ShouldReturnAllItems()
     {
-        //await RunAsDefaultUserAsync();
+        await RunAsDefaultUserAsync();
+        string userId = GetUserId() ?? string.Empty;
 
         var habit = new Habit
         {
-            UserId = "UserId",
+            UserId = userId,
             Name = "Name",
             Frequency = 12,
             ReminderTime = DateTime.UtcNow,
