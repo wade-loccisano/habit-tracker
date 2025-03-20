@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces;
 using Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +36,7 @@ public class CompleteProgressCommandHanlder : IRequestHandler<CompleteProgressCo
         }
 
         habit.HabitProgresses.Add(entity);
+        habit.StreakCount++;
 
         await _context.SaveChangesAsync(cancellationToken);
 
