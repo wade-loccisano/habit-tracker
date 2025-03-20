@@ -20,12 +20,6 @@ public class CompleteProgressCommandHanlder : IRequestHandler<CompleteProgressCo
         CompleteProgressCommand request,
         CancellationToken cancellationToken)
     {
-        var entity = new HabitProgress
-        {
-            Completed = true,
-            CompletedDate = DateTime.UtcNow,
-        };
-
         Habit? habit = await _context.Habits
             .Where(x => x.UserId == request.UserId)
             .FirstOrDefaultAsync(cancellationToken);
@@ -34,6 +28,16 @@ public class CompleteProgressCommandHanlder : IRequestHandler<CompleteProgressCo
         {
             return false;
         }
+
+        // check if habit was already completed today
+
+        var entity = new HabitProgress
+        {
+            Completed = true,
+            CompletedDate = DateTime.UtcNow,
+        };
+
+        await _context.HabitProgresses.AddAsync(entity, cancellationToken);
 
         habit.HabitProgresses.Add(entity);
         habit.StreakCount++;
