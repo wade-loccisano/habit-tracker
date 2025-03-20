@@ -4,4 +4,4 @@ public record HabitProgressDTO(
     Guid Id,
     Guid HabitId,
     bool Completed,
-    DateTime CompetedDate);
+    DateTime? CompetedDate);
