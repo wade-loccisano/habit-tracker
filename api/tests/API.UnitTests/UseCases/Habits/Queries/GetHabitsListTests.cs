@@ -17,6 +17,7 @@ public class GetHabitsListTests : BaseTestFixture
 
         var habit = new Habit
         {
+            UserId = "UserId",
             Name = "Name",
             Frequency = 12,
             ReminderTime = DateTime.UtcNow,
