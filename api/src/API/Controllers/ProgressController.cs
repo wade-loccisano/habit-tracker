@@ -1,4 +1,5 @@
-﻿using Application.UseCases.Progress.Queries;
+﻿using Application.UseCases.Progress.Commands;
+using Application.UseCases.Progress.Queries;
 using Domain.DTOs.Output;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
@@ -26,12 +27,12 @@ public class ProgressController : APIControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<ICollection<HabitProgressDTO>>> CompleteProgress(
+    public async Task<ActionResult<bool>> CompleteProgress(
         string UserId,
         Guid HabitId,
         CancellationToken cancellationToken)
     {
-        ICollection<HabitProgressDTO> results = await Mediator.Send(
+        bool results = await Mediator.Send(
             new CompleteProgressCommand(
                 UserId,
                 HabitId),
