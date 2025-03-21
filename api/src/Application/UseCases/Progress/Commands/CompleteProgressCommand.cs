@@ -23,7 +23,7 @@ public class CompleteProgressCommandHanlder : IRequestHandler<CompleteProgressCo
         Habit? habit = await _context.Habits
             .Where(x => x.UserId == request.UserId)
             .FirstOrDefaultAsync(cancellationToken);
-
+        
         if (habit is null)
         {
             return false;
