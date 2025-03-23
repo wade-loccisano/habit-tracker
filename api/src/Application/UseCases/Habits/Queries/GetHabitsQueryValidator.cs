@@ -5,7 +5,6 @@ namespace Application.UseCases.Habits.Queries;
 
 public class GetHabitsQueryValidator : AbstractValidator<GetHabitsQuery>
 {
-    public GetHabitsQueryValidator()
-    {
-    }
+    public GetHabitsQueryValidator() => RuleFor(x => x.UserId)
+            .NotEmpty();
 }

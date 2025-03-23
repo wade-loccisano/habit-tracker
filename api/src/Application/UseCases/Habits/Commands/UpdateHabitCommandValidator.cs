@@ -10,5 +10,11 @@ public class UpdateHabitCommandValidator : AbstractValidator<UpdateHabitCommand>
             .NotEmpty();
         RuleFor(x => x.HabitId)
             .NotNull();
+        RuleFor(x => x.Name)
+            .MaximumLength(25)
+            .NotEmpty();
+        RuleFor(x => x.Frequency)
+            .LessThanOrEqualTo(7)
+            .NotEmpty();
     }
 }
