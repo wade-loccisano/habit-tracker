@@ -2,8 +2,6 @@
 using Domain.Models;
 using Domain.UseCases.Habits;
 using FluentAssertions;
-using NUnit.Framework.Interfaces;
-using System.Drawing;
 using static API.UnitTests.Testing;
 
 namespace API.UnitTests.UseCases.Habits.Queries;
