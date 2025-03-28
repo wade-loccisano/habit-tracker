@@ -116,6 +116,16 @@ public partial class Testing
         throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
     }
 
+    public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
+        where TEntity : class
+    {
+        using IServiceScope scope = _scopeFactory.CreateScope();
+
+        HabitTrackerDbContext context = scope.ServiceProvider.GetRequiredService<HabitTrackerDbContext>();
+
+        return await context.FindAsync<TEntity>(keyValues);
+    }
+
     [OneTimeTearDown]
     public async Task RunAfterAnyTests()
     {
