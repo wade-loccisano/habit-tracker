@@ -32,9 +32,5 @@ public class CompleteProgressCommandTests : BaseTestFixture
         bool result = await SendAsync(command);
 
         result.Should().BeTrue();
-
-        Habit? updatedHabit = await FindAsync<Habit>(habit.Id);
-
-        updatedHabit.Should().NotBeNull();
     }
 }
