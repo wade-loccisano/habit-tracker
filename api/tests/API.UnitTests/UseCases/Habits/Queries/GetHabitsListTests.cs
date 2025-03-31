@@ -2,8 +2,6 @@
 using Domain.Models;
 using Domain.UseCases.Habits;
 using FluentAssertions;
-using NUnit.Framework.Interfaces;
-using System.Drawing;
 using static API.UnitTests.Testing;
 
 namespace API.UnitTests.UseCases.Habits.Queries;
@@ -28,13 +26,8 @@ public class GetHabitsListTests : BaseTestFixture
 
         await AddAsync(habit);
 
-        //var habitProgresses = new List<HabitProgress>
-        //{
-        //};
-
         var prog = new HabitProgress { HabitId = habit.Id, Completed = true, CompletedDate = DateTime.UtcNow };
 
-        //await AddAsync(habitProgresses);
         await AddAsync(prog);
 
         habit.HabitProgresses.Add(prog);
@@ -43,7 +36,6 @@ public class GetHabitsListTests : BaseTestFixture
 
         ICollection<HabitListDTO> result = await SendAsync(query);
 
-        //result.Count.Should().HaveCount(1);
         result.First().Name.Should().Be(habit.Name);
     }
 
